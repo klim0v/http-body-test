@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/csv"
 	"github.com/golang/protobuf/ptypes/empty"
+	"github.com/klim0v/http-body-test/pb"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/api/httpbody"
 	"google.golang.org/grpc"
@@ -12,6 +13,10 @@ import (
 )
 
 type Service struct {
+}
+
+func (*Service) Ping(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*pb.PongResponse, error) {
+	return &pb.PongResponse{Pong: "OK"}, nil
 }
 
 func (*Service) GetResource(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*httpbody.HttpBody, error) {
@@ -27,7 +32,6 @@ func (*Service) GetResource(ctx context.Context, in *empty.Empty, opts ...grpc.C
 	writer.Flush()
 
 	response := &httpbody.HttpBody{
-		//Extensions: ,
 		ContentType: "application/octet-stream",
 		Data:        buf.Bytes(),
 	}

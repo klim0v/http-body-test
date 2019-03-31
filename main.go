@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"github.com/klim0v/http-body-test/service"
 	"net/http"
 
@@ -27,7 +26,6 @@ func run() error {
 }
 
 func main() {
-	flag.Parse()
 	defer glog.Flush()
 
 	if err := run(); err != nil {

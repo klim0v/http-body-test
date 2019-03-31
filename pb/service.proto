@@ -6,10 +6,19 @@ import "google/api/httpbody.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
+message PongResponse {
+    string pong = 1;
+}
+
 service Service {
     rpc GetResource (google.protobuf.Empty) returns (google.api.HttpBody) {
         option (google.api.http) = {
-            get: "/file"
+            get: "/file.csv"
+        };
+    }
+    rpc Ping (google.protobuf.Empty) returns (PongResponse) {
+        option (google.api.http) = {
+            get: "/ping"
         };
     }
 }
